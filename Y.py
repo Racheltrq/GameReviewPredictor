@@ -4,9 +4,11 @@ with open("y_raw.csv", 'r') as infile, open("Xmat.csv") as infile1, open("XYmat.
 	r = csv.DictReader(infile)
 	r1 = csv.DictReader(infile1)
 	fieldnames = next(r1)
-	fieldnames["reviews"] = 0
-	print(len(fieldnames))
-	w = csv.DictWriter(outfile, fieldnames = fieldnames)
+	fieldnames.pop("name")
+	header = ["name", "reviews"]
+	for i in fieldnames:
+		header.append(i)
+	w = csv.DictWriter(outfile, fieldnames = header)
 	w.writeheader()
 
 	for row in r:
