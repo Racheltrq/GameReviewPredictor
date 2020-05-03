@@ -1,7 +1,7 @@
 import csv
 import copy
 
-with open("y_raw.csv", 'r') as infile, open("Xmat.csv") as infile1, open("desc.csv") as infile2, open("XYmat_desc.csv", 'w') as outfile:
+with open("y_raw.csv", 'r') as infile, open("Xmat_lang.csv") as infile1, open("desc.csv") as infile2, open("XYmat_lang_desc.csv", 'w') as outfile:
 	y_raw = csv.DictReader(infile)
 	Xmat = csv.DictReader(infile1)
 	desc_mat = csv.DictReader(infile2)
@@ -27,5 +27,3 @@ with open("y_raw.csv", 'r') as infile, open("Xmat.csv") as infile1, open("desc.c
 			desc_row = next(desc_mat)
 			w.writerow(xrow)
 			i += 1
-
-	
