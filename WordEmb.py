@@ -7,7 +7,7 @@ import gensim
 class docFeature:
     # Attributes #
     numWords = 5
-    DEBUG = True
+    DEBUG = False
 
     def __init__(self, modelName="wvmodel.bin", inDoc=None):
         # Load model with name from fs
@@ -29,7 +29,9 @@ class docFeature:
             try:
                 cVec = self.model[cWord]
             except KeyError:
-                print("KeyNotFound")
+                #print("/!\\ Key Not Found")
+                i+=1
+                continue
             wvs.append(cVec)
             curWords += 1
             i += 1
@@ -37,10 +39,18 @@ class docFeature:
 
     def getFeatures(self):
         wvs = self.getVectors()
-        print(wvs[0].shape) if self.DEBUG else 0
-        sumv = np.zeros(wvs[0].shape[0])
-        for v in wvs:
-            sumv = sumv + v
-        sumv = sumv / len(wvs)
-        print(sumv) if self.DEBUG else 0
+        try:
+            wvsize = wvs[0].shape
+
+            print(wvs[0].shape) if self.DEBUG else 0
+            sumv = np.zeros(wvs[0].shape[0])
+            for v in wvs:
+                sumv = sumv + v
+            fv = sumv / len(wvs)
+            print(sumv) if self.DEBUG else 0
+            return fv
+        except IndexError:
+            print("IndexError")
+            print("wvs:", wvs)
+            return False
 
